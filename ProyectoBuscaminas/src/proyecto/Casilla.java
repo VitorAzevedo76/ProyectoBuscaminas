@@ -25,4 +25,8 @@ public class Casilla {
 	public void incValorCasilla() {
 		valor++;
 	}
+	
+	public void addMina() {
+		conMina=true;
+	}
 }
