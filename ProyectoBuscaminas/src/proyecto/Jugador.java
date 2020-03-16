@@ -10,5 +10,12 @@ public class Jugador {
 		nombre=pNombre;
 	}
 	
+	public int getValor() {
+		return valor;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 }
 
