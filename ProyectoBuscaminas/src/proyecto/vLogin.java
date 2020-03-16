@@ -29,7 +29,7 @@ public class vLogin extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAjustes dialog = new VentanaAjustes();
+					vLogin dialog = new vLogin();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -99,19 +99,19 @@ public class vLogin extends JDialog {
 	}
 	private JRadioButton getRdbtnNewRadioButton() {
 		if (rdbtnNewRadioButton == null) {
-			rdbtnNewRadioButton = new JRadioButton("3x3");
+			rdbtnNewRadioButton = new JRadioButton("Nivel 1");
 		}
 		return rdbtnNewRadioButton;
 	}
 	private JRadioButton getRdbtnNewRadioButton_1() {
 		if (rdbtnNewRadioButton_1 == null) {
-			rdbtnNewRadioButton_1 = new JRadioButton("5x5");
+			rdbtnNewRadioButton_1 = new JRadioButton("Nivel 2");
 		}
 		return rdbtnNewRadioButton_1;
 	}
 	private JRadioButton getRdbtnx() {
 		if (rdbtnx == null) {
-			rdbtnx = new JRadioButton("10x10");
+			rdbtnx = new JRadioButton("Nivel 3");
 		}
 		return rdbtnx;
 	}
@@ -121,17 +121,21 @@ public class vLogin extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(rdbtnNewRadioButton.isSelected()) {
-				VentanaAjustes.this.dispose();
-				ventanaFinal vf= new ventanaFinal(3,3);
+				vLogin.this.dispose();
+				vJuego vf= new vJuego(7,10);
+				Tablero.getMiTablero().generarTablero(7,10,1);
+			
 				
 			}
 			else if(rdbtnNewRadioButton_1.isSelected()) {
-				VentanaAjustes.this.dispose();
-				ventanaFinal vf= new ventanaFinal(5,5);
+				vLogin.this.dispose();
+				vJuego vf= new vJuego(10,15);
+				Tablero.getMiTablero().generarTablero(10,15,2);
 			}
 			else {
-				VentanaAjustes.this.dispose();
-				ventanaFinal vf= new ventanaFinal(10,10);
+				vLogin.this.dispose();
+				vJuego vf= new vJuego(12,25);
+				Tablero.getMiTablero().generarTablero(12,25,3);
 			}
 			
 		}
