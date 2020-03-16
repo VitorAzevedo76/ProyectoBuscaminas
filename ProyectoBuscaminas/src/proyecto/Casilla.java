@@ -29,4 +29,6 @@ public class Casilla {
 	public void addMina() {
 		conMina=true;
 	}
+	
+	//Prueba
 }
