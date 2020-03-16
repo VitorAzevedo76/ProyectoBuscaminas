@@ -67,10 +67,6 @@ public class Tablero {
 	 * @param x
 	 * @param y
 	 */
-	private void insertarBomba(int x, int y) {
-		// TODO - implement Tablero.insertarBomba
-		throw new UnsupportedOperationException();
-	}
 
 	private void guardarPuntuacion() {
 		// TODO - implement Tablero.guardarPuntuacion
@@ -88,7 +84,7 @@ public class Tablero {
 	}
 
 }	
-}
+
 
 
 
