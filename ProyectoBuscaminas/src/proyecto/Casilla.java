@@ -1,5 +1,6 @@
 package proyecto;
 
+
 public class Casilla {
 	private boolean conMina;
 	private int valor;
@@ -22,6 +23,9 @@ public class Casilla {
 	public Estado getEstado() {
 		return estado;
 	}
+	public int getValor() {
+		return valor;
+	}
 	public void incValorCasilla() {
 		valor++;
 	}
@@ -32,3 +36,4 @@ public class Casilla {
 	
 	//Prueba
 }
+
