@@ -8,7 +8,9 @@ public class Puntuaciones {
 	//Constructora
 	
 	private Puntuaciones() {
+
 		//lista=new Jugador[10]();
+
 	}
 	
 	public static Puntuaciones getMisPuntuaciones() {
