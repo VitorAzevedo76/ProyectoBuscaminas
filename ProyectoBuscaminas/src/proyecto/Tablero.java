@@ -1,6 +1,6 @@
 package proyecto;
-import java.util.Observable;
-public class Tablero {
+
+public class Tablero implements Observer {
 	//Atributos
 	private Jugador jugador;
 	private Casilla[][] matriz;
@@ -42,6 +42,8 @@ public class Tablero {
 	private void insertarBomba(int x, int y) {
 		
 	}
+
+	
 	//Metodos de juego en curso
 	
 	public void pulsarCasillaDer(int x, int y) {
@@ -58,37 +60,48 @@ public class Tablero {
 		return false;
 	}
 	
-	private void actualizarBordes(int x, int y) {
+	private void actualizarBordesPulsado(int x, int y) {
 		
 	}
-  
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	private void insertarBomba(int x, int y) {
-		// TODO - implement Tablero.insertarBomba
-		throw new UnsupportedOperationException();
+	
+	
+	//Otros metodos
+	
+	private int getMarcadas() {
+		
 	}
-
 	private void guardarPuntuacion() {
-		// TODO - implement Tablero.guardarPuntuacion
-		throw new UnsupportedOperationException();
+		
 	}
-
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
+	
 	private void notifyObservers(int x, int y) {
-		// TODO - implement Tablero.notifyObservers
-		throw new UnsupportedOperationException();
+		
 	}
-
-}	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
