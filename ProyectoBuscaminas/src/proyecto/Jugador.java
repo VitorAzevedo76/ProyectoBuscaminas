@@ -1,3 +1,4 @@
+
 package proyecto;
 
 public class Jugador {
@@ -9,5 +10,5 @@ public class Jugador {
 		nombre=pNombre;
 	}
 	
-	public
 }
+
