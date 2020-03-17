@@ -1,6 +1,7 @@
 package proyecto;
 
 
+
 public class Casilla {
 	private boolean conMina;
 	private int valor;
@@ -16,6 +17,13 @@ public class Casilla {
 		estado=pEstado;
 	}
 	
+	public void hacerClickDer() {
+		estado.hacerClickD(this);
+	}
+	
+	public void hacerClickIzq() {
+		estado.hacerClickIz(this);
+	}
 	public boolean esMina() {
 		return conMina;
 	}
@@ -36,4 +44,3 @@ public class Casilla {
 	
 	//Prueba
 }
-
