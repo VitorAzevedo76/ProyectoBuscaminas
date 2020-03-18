@@ -7,7 +7,7 @@ public class Tapada implements Estado {
 	
 	public void hacerClickD(Casilla pCasilla) {
 		System.out.println("ClickD");
-		//pCasilla.cambiarEstado(new Sennalada());
+		pCasilla.cambiarEstado(new Señalada());
 	}
 
 	@Override

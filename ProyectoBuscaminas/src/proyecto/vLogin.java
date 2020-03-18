@@ -61,7 +61,7 @@ public class vLogin extends JDialog {
 		setVisible(true);
 	}
 	private void initialize() {
-		setTitle("Selecciona el tamaño de la ventana");
+		setTitle("Selecciona el tamaï¿½o de la ventana");
 		setBounds(100, 100, 346, 115);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(getPanel(), BorderLayout.SOUTH);
