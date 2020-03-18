@@ -122,8 +122,8 @@ public class vLogin extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			if(rdbtnNewRadioButton.isSelected()) {
 				vLogin.this.dispose();
-				vJuego vf= new vJuego(7,10);
-				Tablero.getMiTablero().generarTablero(7,10,1);
+				vJuego vf= new vJuego(5,5);
+				Tablero.getMiTablero().generarTablero(5,5,1);
 			
 				
 			}

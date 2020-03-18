@@ -166,24 +166,26 @@ public class Tablero implements NObservable {
 		System.out.println("Izq -Has pulsado la casilla "+x+"-"+y);
 		numCasillaDestapada++;
 		matriz[x][y].hacerClickIzq();
+		System.out.println(numCasillaDestapada);
 		actualizarBordesPulsado(x,y);
+		System.out.println(numCasillaDestapada);
 		imprimirJ() ;
 		if(matriz[x][y].esMina()) {
 			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
-			finPartida();
+			juego=false;
 		}
 		else if(haGanado()) {
 			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
-			finPartida();
+			juego=false;
 		}
 		}
 	}
 	
-	public void finPartida() {
-		juego=false;
+	public boolean finPartida() {
+		return juego;
 		
 	}
-	private boolean haGanado() {
+	public boolean haGanado() {
 		int numTotal=matriz[0].length * matriz.length;
 		boolean resp=numCasillaDestapada>=(numTotal-bombas);
 		return resp;
@@ -200,8 +202,6 @@ public class Tablero implements NObservable {
 	
 		if(matriz[x][y].getValor()==0) {
 		while(!cola.isEmpty()) {
-			this.numCasillaDestapada++;
-			//System.out.println("Una vuelta");
 			Casilla cas=cola.remove();
 			System.out.println(evaluados.containsKey(matriz[x][y]));
 			int[] coord=evaluados.get(cas);
@@ -224,7 +224,10 @@ public class Tablero implements NObservable {
 								
 								}
 							else{
-							
+								if(matriz[x+i][y+j].getEstado() instanceof Tapada) {System.out.println("DEStapda: "+(x+i)+(y+j));
+								this.numCasillaDestapada++;}
+								else {System.out.println("tapda "+(x+i)+(y+j));
+										}
 								matriz[x+i][y+j].hacerClickIzq();
 							}
 							
@@ -238,7 +241,6 @@ public class Tablero implements NObservable {
 					}
 			
 			}
-
 			cas.hacerClickIzq();
 			
 		}
