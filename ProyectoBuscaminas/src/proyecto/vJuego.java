@@ -20,7 +20,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 
-public class vJuego extends JFrame {
+public class vJuego extends JFrame implements NObserver {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -149,7 +149,16 @@ public class vJuego extends JFrame {
 
 	
 	}
+	@Override
+	public void update(NObservable o, int x, int y) {
+		if(o instanceof Tablero) {
+			actualizar(x,y);
+		}
+	}
 	
+	private void actualizar(int x, int y) {
+		//Código para que se actualize y cambie la casilla con la coordenada X e Y.
+	}
 
 	
 }
