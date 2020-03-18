@@ -10,10 +10,13 @@ public class Tablero  {
 	private int bombas;
 	private int bombasRestantes;
 	private int marcadas;
+	private boolean juego;
+	private int numCasillaDestapada;
 	
 	//Constructora
 	private Tablero() {
-		
+		juego=true;
+		numCasillaDestapada=0;
 	}
 	
 	public static Tablero getMiTablero() {
@@ -35,6 +38,7 @@ public class Tablero  {
 		Random Rc=new Random();
 		int f=Rf.nextInt(x);
 		int c=Rc.nextInt(x);
+		this.haGanado();
 		
 		//Inicializar todas las casillas a vacias con valor 0
 		
@@ -134,23 +138,54 @@ public class Tablero  {
 	//METODOS DE JUEGO EN CURSO
 	
 	public void pulsarCasillaDer(int x, int y) {
-		System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
-		
+		if(juego) {
+			if(marcadas<bombas) {
+				System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
+				matriz[x][y].hacerClickDer();
+				Estado estAct=matriz[x][y].getEstado();
+				if(estAct instanceof Tapada ) {
+					bombasRestantes++;
+					marcadas--;
+				}
+				else if (estAct instanceof Señalada) {
+					bombasRestantes--;
+					marcadas++;
+			}
+			}
+			else if(matriz[x][y].getEstado() instanceof Señalada) {
+				matriz[x][y].hacerClickDer();
+				bombasRestantes++;
+				marcadas--;
+			}
+		}
 	}
 	
 	public void pulsarCasillaIzq(int x, int y) {
+		if(juego && (matriz[x][y].getEstado() instanceof Tapada)) {
 		System.out.println("Izq -Has pulsado la casilla "+x+"-"+y);
+		numCasillaDestapada++;
 		matriz[x][y].hacerClickIzq();
 		actualizarBordesPulsado(x,y);
 		imprimirJ() ;
+		if(matriz[x][y].esMina()) {
+			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
+			finPartida();
+		}
+		else if(haGanado()) {
+			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
+			finPartida();
+		}
+		}
 	}
 	
 	public void finPartida() {
-		//Hay que ver como hacer que la vista se entere de que el juego ha terminado
+		juego=false;
 		
 	}
 	private boolean haGanado() {
-		return false;
+		int numTotal=matriz[0].length * matriz.length;
+		boolean resp=numCasillaDestapada>=(numTotal-bombas);
+		return resp;
 	}
 	
 	private void actualizarBordesPulsado(int x, int y) {
@@ -163,9 +198,8 @@ public class Tablero  {
 		cola.add(matriz[x][y]);
 	
 		if(matriz[x][y].getValor()==0) {
-		
-		
 		while(!cola.isEmpty()) {
+			this.numCasillaDestapada++;
 			//System.out.println("Una vuelta");
 			Casilla cas=cola.remove();
 			System.out.println(evaluados.containsKey(matriz[x][y]));
@@ -189,7 +223,7 @@ public class Tablero  {
 								
 								}
 							else{
-								
+							
 								matriz[x+i][y+j].hacerClickIzq();
 							}
 							
@@ -203,7 +237,7 @@ public class Tablero  {
 					}
 			
 			}
-			
+
 			cas.hacerClickIzq();
 			
 		}
