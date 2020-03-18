@@ -2,7 +2,7 @@ package proyecto;
 
 import java.util.*;
 
-public class Tablero  {
+public class Tablero implements NObservable {
 	//Atributos
 	private Jugador jugador;
 	private Casilla[][] matriz;
@@ -12,6 +12,7 @@ public class Tablero  {
 	private int marcadas;
 	private boolean juego;
 	private int numCasillaDestapada;
+	private List<NObserver> observers;
 	
 	//Constructora
 	private Tablero() {
@@ -253,11 +254,23 @@ public class Tablero  {
 	private void guardarPuntuacion() {
 		
 	}
-	
-	private void notifyObservers(int x, int y) {
-		
+	public void añadirObservers(NObserver o) {
+		observers.add(o);
 	}
 	
+	public void borrarObserver(NObserver o) {
+		if (observers.contains(o)) {
+			observers.remove(o);
+		}
+	}
+	
+	public void notifyObservers(int x, int y) {
+		Iterator<NObserver> iter = observers.iterator();
+		while(iter.hasNext()) {
+			NObserver o = iter.next();
+			o.update(this,x,y);
+		}
+	}
 	
 	
 }
