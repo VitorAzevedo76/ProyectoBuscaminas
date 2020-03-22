@@ -12,12 +12,14 @@ public class Tablero implements NObservable {
 	private int marcadas;
 	private boolean juego;
 	private int numCasillaDestapada;
-	private List<NObserver> observers;
+	private ArrayList<NObserver> observers;
 	
 	//Constructora
 	private Tablero() {
 		juego=true;
 		numCasillaDestapada=0;
+		observers= new ArrayList<NObserver>();
+		
 	}
 	
 	public static Tablero getMiTablero() {
@@ -143,18 +145,20 @@ public class Tablero implements NObservable {
 			if(marcadas<bombas) {
 				System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
 				matriz[x][y].hacerClickDer();
+				this.notifyObservers(x, y);
 				Estado estAct=matriz[x][y].getEstado();
 				if(estAct instanceof Tapada ) {
 					bombasRestantes++;
 					marcadas--;
 				}
-				else if (estAct instanceof Señalada) {
+				else if (estAct instanceof Senalada) {
 					bombasRestantes--;
 					marcadas++;
 			}
 			}
-			else if(matriz[x][y].getEstado() instanceof Señalada) {
+			else if(matriz[x][y].getEstado() instanceof Senalada) {
 				matriz[x][y].hacerClickDer();
+				this.notifyObservers(x, y);
 				bombasRestantes++;
 				marcadas--;
 			}
@@ -166,17 +170,20 @@ public class Tablero implements NObservable {
 		System.out.println("Izq -Has pulsado la casilla "+x+"-"+y);
 		numCasillaDestapada++;
 		matriz[x][y].hacerClickIzq();
-		System.out.println(numCasillaDestapada);
+		this.notifyObservers(x, y);
+		//System.out.println(numCasillaDestapada);
 		actualizarBordesPulsado(x,y);
-		System.out.println(numCasillaDestapada);
+		//System.out.println(numCasillaDestapada);
 		imprimirJ() ;
 		if(matriz[x][y].esMina()) {
 			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
 			juego=false;
+			this.notifyObservers(x, y);
 		}
 		else if(haGanado()) {
 			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
 			juego=false;
+			this.notifyObservers(x, y);
 		}
 		}
 	}
@@ -225,10 +232,13 @@ public class Tablero implements NObservable {
 								}
 							else{
 								if(matriz[x+i][y+j].getEstado() instanceof Tapada) {System.out.println("DEStapda: "+(x+i)+(y+j));
-								this.numCasillaDestapada++;}
+								this.numCasillaDestapada++;
+								;
+								}
 								else {System.out.println("tapda "+(x+i)+(y+j));
 										}
 								matriz[x+i][y+j].hacerClickIzq();
+								this.notifyObservers(x+i, y+j);
 							}
 							
 							
@@ -248,7 +258,9 @@ public class Tablero implements NObservable {
 		}
 		
 	//Otros metodos
-	
+	public Casilla getCasilla(int x, int y) {
+		return matriz[x][y];
+	}
 	private int getMarcadas() {
 		return marcadas;
 		
