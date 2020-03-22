@@ -123,18 +123,21 @@ public class vLogin extends JDialog {
 			if(rdbtnNewRadioButton.isSelected()) {
 				vLogin.this.dispose();
 				ventanaJuego vf= new ventanaJuego(7,10);
+				Tablero.getMiTablero().añadirObservers(vf);
 				Tablero.getMiTablero().generarTablero(7,10,1);
 			
 				
 			}
 			else if(rdbtnNewRadioButton_1.isSelected()) {
 				vLogin.this.dispose();
-				vJuego vf= new vJuego(10,15);
+				ventanaJuego vf= new ventanaJuego(10,15);
+				Tablero.getMiTablero().añadirObservers(vf);
 				Tablero.getMiTablero().generarTablero(10,15,2);
 			}
 			else {
 				vLogin.this.dispose();
-				vJuego vf= new vJuego(12,25);
+				ventanaJuego vf= new ventanaJuego(12,25);
+				Tablero.getMiTablero().añadirObservers(vf);
 				Tablero.getMiTablero().generarTablero(12,25,3);
 			}
 			

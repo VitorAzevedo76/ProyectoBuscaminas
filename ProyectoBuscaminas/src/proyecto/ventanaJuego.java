@@ -11,12 +11,15 @@ import javax.swing.border.EmptyBorder;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 
@@ -31,6 +34,8 @@ public class ventanaJuego extends JFrame implements NObserver{
 	private	JButton bMatriz[][];
 	private int DimX;
 	private int DimY;
+	private int TamX;
+	private int TamY;
 
 	/**
 	 * Launch the application.
@@ -58,6 +63,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 		vizualizar();
 	}
 	private void vizualizar() {
+		this.setSize(500,500);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height) {
@@ -72,8 +78,9 @@ public class ventanaJuego extends JFrame implements NObserver{
 	}
 	private void initialize() {
 		bMatriz = new JButton[DimX][DimY];
+		ObtenerTamanioObjetos(DimX,DimY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(0, 0, 500, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,13 +92,13 @@ public class ventanaJuego extends JFrame implements NObserver{
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
+			panel.setSize(500, 500);
 			panel.setLayout(new GridLayout(DimX,DimY));
 			 for(int f=0;f<DimX;f++){
 			      for(int c=0;c<DimY;c++){
 			    	JButton boton=new JButton();
 			        bMatriz[f][c] = boton;
-			        bMatriz[f][c].setBounds(5,5,0,0);
-			        panel.setBounds(140,15,270,300);
+			        bMatriz[f][c].setSize(TamX,TamY);
 			        panel.add(bMatriz[f][c]); 
 			        boton.addMouseListener(new controlador(f,c));
 			        //boton.addActionListener(new ControladorB(f,c));
@@ -151,9 +158,6 @@ public class ventanaJuego extends JFrame implements NObserver{
 			// 3- Click derecho			
 			int n=e.getButton();
 			if(n==1) {
-				int valor=Tablero.getMiTablero().getCasilla(x, y).getValor();
-				bMatriz[x][y].setEnabled(false);
-				bMatriz[x][y].setText(String.valueOf(valor));
 				Tablero.getMiTablero().pulsarCasillaIzq(x, y);
 			}
 			else if(n==3) {
@@ -176,13 +180,48 @@ public class ventanaJuego extends JFrame implements NObserver{
 	@Override
 	public void update(NObservable o, int x, int y) {
 		if(o instanceof Tablero) {
-			actualizar(x,y);
+			Casilla act= ((Tablero) o).getCasilla(x, y);
+			Estado eAct=act.getEstado();
+			
+			//if(!act.esMina()||(eAct instanceof Señalada)) {
+			
+			if(eAct instanceof Senalada) {
+				bMatriz[x][y].setIcon(new ImageIcon("./img/flag.png"));
+			
+			}
+			else if(eAct instanceof Tapada){
+				bMatriz[x][y].setIcon(null);
+				
+			}
+			else {
+				if(!act.esMina()) {
+				int valor=act.getValor();
+				bMatriz[x][y].setEnabled(false);
+				bMatriz[x][y].setText(String.valueOf(valor));
+				}
+				else {bMatriz[x][y].setIcon(new ImageIcon("./img/bomb.png"));}
+			}
+			
+			
+			// Comprobación a ver si sigue o no el juego
+			if(!((Tablero) o).finPartida()) {
+				if(((Tablero) o).haGanado()) {
+				JOptionPane.showMessageDialog(null,"Has Ganado el juego");
+				ventanaJuego.this.dispose();}
+				else {
+				JOptionPane.showMessageDialog(null,"Has Perdido el juego");
+				ventanaJuego.this.dispose();
+				}
+			}
 		}
 	}
 	
-	private void actualizar(int x, int y) {
-		//Código para que se actualize y cambie la casilla con la coordenada X e Y.
-	}
+	private void ObtenerTamanioObjetos(int cantX, int cantY)
+    {
+        TamX = 500/cantX;
+        TamY = 500/cantY;
+    }
+	
 
 	
 
