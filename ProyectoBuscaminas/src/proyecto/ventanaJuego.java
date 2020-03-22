@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -57,6 +58,8 @@ public class ventanaJuego extends JFrame implements NObserver{
 	 * Create the frame.
 	 */
 	public ventanaJuego(int x, int y) {
+		setResizable(false);
+		setTitle("BUSCAMINA");
 		DimX=x;
 		DimY=y;
 		initialize();
@@ -82,10 +85,10 @@ public class ventanaJuego extends JFrame implements NObserver{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 500, 500);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(getPanel(), BorderLayout.SOUTH);
+		contentPane.add(getPanel(), BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.NORTH);
 	}
 
@@ -125,7 +128,8 @@ public class ventanaJuego extends JFrame implements NObserver{
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel(" : ) ");
+			lblNewLabel_1 = new JLabel();
+			lblNewLabel_1.setIcon(new ImageIcon("./img/happy.png"));
 		}
 		return lblNewLabel_1;
 	}
@@ -145,7 +149,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			lblNewLabel.setText("X: "+x+" Y: "+y);		
+			//lblNewLabel.setText("X: "+x+" Y: "+y);		
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -179,6 +183,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 	}
 	@Override
 	public void update(NObservable o, int x, int y) {
+		
 		if(o instanceof Tablero) {
 			Casilla act= ((Tablero) o).getCasilla(x, y);
 			Estado eAct=act.getEstado();
@@ -186,7 +191,9 @@ public class ventanaJuego extends JFrame implements NObserver{
 			//if(!act.esMina()||(eAct instanceof Señalada)) {
 			
 			if(eAct instanceof Senalada) {
-				bMatriz[x][y].setIcon(new ImageIcon("./img/flag.png"));
+				ImageIcon imagen = new ImageIcon("./img/flag.png");
+				bMatriz[x][y].setIcon(imagen);
+			
 			
 			}
 			else if(eAct instanceof Tapada){
@@ -199,7 +206,10 @@ public class ventanaJuego extends JFrame implements NObserver{
 				bMatriz[x][y].setEnabled(false);
 				bMatriz[x][y].setText(String.valueOf(valor));
 				}
-				else {bMatriz[x][y].setIcon(new ImageIcon("./img/bomb.png"));}
+				else 
+					{ImageIcon imagen = new ImageIcon("./img/bomb.png");
+					bMatriz[x][y].setIcon(imagen);
+					}
 			}
 			
 			
