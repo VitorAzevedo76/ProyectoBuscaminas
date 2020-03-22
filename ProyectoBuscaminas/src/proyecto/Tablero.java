@@ -248,7 +248,9 @@ public class Tablero implements NObservable {
 		}
 		
 	//Otros metodos
-	
+	public Casilla getCasilla(int x, int y) {
+		return matriz[x][y];
+	}
 	private int getMarcadas() {
 		return marcadas;
 		
