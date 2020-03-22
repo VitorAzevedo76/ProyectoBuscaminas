@@ -268,7 +268,7 @@ public class Tablero implements NObservable {
 	private void guardarPuntuacion() {
 		
 	}
-	public void añadirObservers(NObserver o) {
+	public void anadirObservers1(NObserver o) {
 		observers.add(o);
 	}
 	
@@ -284,6 +284,12 @@ public class Tablero implements NObservable {
 			NObserver o = iter.next();
 			o.update(this,x,y);
 		}
+	}
+
+	@Override
+	public void anadirObservers(NObserver pObs) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
