@@ -1,7 +1,5 @@
 package proyecto;
 
-
-
 public class Casilla {
 	private boolean conMina;
 	private int valor;

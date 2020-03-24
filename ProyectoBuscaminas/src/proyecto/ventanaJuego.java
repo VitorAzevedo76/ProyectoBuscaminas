@@ -209,6 +209,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 				else 
 					{ImageIcon imagen = new ImageIcon("./img/bomb.png");
 					bMatriz[x][y].setIcon(imagen);
+					lblNewLabel_1.setIcon(new ImageIcon("./img/sad.png"));
 					}
 			}
 			
