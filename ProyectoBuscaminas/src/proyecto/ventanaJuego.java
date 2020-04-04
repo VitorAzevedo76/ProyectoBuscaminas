@@ -188,8 +188,6 @@ public class ventanaJuego extends JFrame implements NObserver{
 			Casilla act= ((Tablero) o).getCasilla(x, y);
 			Estado eAct=act.getEstado();
 			
-			//if(!act.esMina()||(eAct instanceof Señalada)) {
-			
 			if(eAct instanceof Senalada) {
 				ImageIcon imagen = new ImageIcon("./img/flag.png");
 				bMatriz[x][y].setIcon(imagen);
@@ -209,6 +207,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 				else 
 					{ImageIcon imagen = new ImageIcon("./img/bomb.png");
 					bMatriz[x][y].setIcon(imagen);
+					lblNewLabel_1.setIcon(new ImageIcon("./img/sad.png"));
 					}
 			}
 			
