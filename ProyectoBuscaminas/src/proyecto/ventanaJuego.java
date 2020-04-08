@@ -103,11 +103,14 @@ public class ventanaJuego extends JFrame implements NObserver{
 			        bMatriz[f][c] = boton;
 			        bMatriz[f][c].setSize(TamX,TamY);
 			        panel.add(bMatriz[f][c]); 
+			        
 			        boton.addMouseListener(new controlador(f,c));
 			        //boton.addActionListener(new ControladorB(f,c));
 
 			      }
 			    }
+			 
+			
 		}
 		return panel;
 	}
@@ -122,10 +125,18 @@ public class ventanaJuego extends JFrame implements NObserver{
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("numBombas");
+			lblNewLabel = new JLabel("Bombas restantes: "+String.valueOf(Tablero.getMiTablero().getBombasRestantes()));
+			
 		}
 		return lblNewLabel;
 	}
+	
+	
+	private void editBombas() {
+		
+	 lblNewLabel.setText(String.valueOf("Bombas restantes: "+Tablero.getMiTablero().getBombasRestantes()));
+	}
+	
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel();
@@ -183,6 +194,8 @@ public class ventanaJuego extends JFrame implements NObserver{
 	}
 	@Override
 	public void update(NObservable o, int x, int y) {
+
+		editBombas();
 		
 		if(o instanceof Tablero) {
 			Casilla act= ((Tablero) o).getCasilla(x, y);
@@ -223,6 +236,7 @@ public class ventanaJuego extends JFrame implements NObserver{
 				}
 			}
 		}
+		
 	}
 	
 	private void ObtenerTamanioObjetos(int cantX, int cantY)
