@@ -177,24 +177,24 @@ public class vLogin extends JDialog {
 			else {
 			if(n1.isSelected()) {
 				vLogin.this.dispose();
-				ventanaJuego vf= new ventanaJuego(7,10);
-				Tablero.getMiTablero().anadirObservers(vf);
 				Tablero.getMiTablero().generarTablero(7,10,1);
+				ventanaJuego vf= new ventanaJuego(7,10);
+				Tablero.getMiTablero().anadirObservers(vf);		
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 				
 			}
 			else if(n2.isSelected()) {
 				vLogin.this.dispose();
+				Tablero.getMiTablero().generarTablero(10,15,2);
 				ventanaJuego vf= new ventanaJuego(10,15);
 				Tablero.getMiTablero().anadirObservers(vf);
-				Tablero.getMiTablero().generarTablero(10,15,2);
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 			}
 			else if(n3.isSelected()){
 				vLogin.this.dispose();
+				Tablero.getMiTablero().generarTablero(12,25,3);
 				ventanaJuego vf= new ventanaJuego(12,25);
 				Tablero.getMiTablero().anadirObservers(vf);
-				Tablero.getMiTablero().generarTablero(12,25,3);
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 			}
 			

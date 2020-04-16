@@ -145,7 +145,7 @@ public class Tablero implements NObservable {
 			if(marcadas<bombas) {
 				System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
 				matriz[x][y].hacerClickDer();
-				this.notifyObservers(x, y);
+				//this.notifyObservers(x, y);
 				Estado estAct=matriz[x][y].getEstado();
 				if(estAct instanceof Tapada ) {
 					bombasRestantes++;
@@ -158,11 +158,13 @@ public class Tablero implements NObservable {
 			}
 			else if(matriz[x][y].getEstado() instanceof Senalada) {
 				matriz[x][y].hacerClickDer();
-				this.notifyObservers(x, y);
+				
 				bombasRestantes++;
 				marcadas--;
 			}
 		}
+		this.notifyObservers(x, y);
+		System.out.println(this.bombasRestantes);
 	}
 	
 	public void pulsarCasillaIzq(int x, int y) {
@@ -235,15 +237,13 @@ public class Tablero implements NObservable {
 								this.numCasillaDestapada++;
 								;
 								}
-								else {System.out.println("tapda "+(x+i)+(y+j));
+								else {System.out.println("tapada "+(x+i)+(y+j));
 										}
 								matriz[x+i][y+j].hacerClickIzq();
 								this.notifyObservers(x+i, y+j);
 							}
 							
-							
-							//System.out.println(evaluados.containsKey(matriz[x+i][y+j]));
-						//	System.out.println( ""+coor[0]+""+coor[1]);
+					
 							
 							
 							}
@@ -286,7 +286,9 @@ public class Tablero implements NObservable {
 		}
 	}
 
-
+	public int getBombasRestantes() {
+		return this.bombasRestantes;
+	}
 	
 	
 }
