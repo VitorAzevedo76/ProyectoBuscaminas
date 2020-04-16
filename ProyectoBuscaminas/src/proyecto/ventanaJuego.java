@@ -58,15 +58,15 @@ public class ventanaJuego extends JFrame implements NObserver{
 	 * Create the frame.
 	 */
 	public ventanaJuego(int x, int y) {
-		setResizable(false);
-		setTitle("BUSCAMINA");
+		setResizable(true);
+		setTitle("BUSCAMINAS");
 		DimX=x;
 		DimY=y;
 		initialize();
 		vizualizar();
 	}
 	private void vizualizar() {
-		this.setSize(500,500);
+		this.setSize(750,750);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height) {
