@@ -13,6 +13,9 @@ public class Tablero implements NObservable {
 	private boolean juego;
 	private int numCasillaDestapada;
 	private ArrayList<NObserver> observers;
+	private int dimX;
+	private int dimY;
+	private int nivel;
 	
 	//Constructora
 	private Tablero() {
@@ -33,15 +36,18 @@ public class Tablero implements NObservable {
 	//METODOS DE INICIO DE JUEGO
 	
 	public void generarTablero(int x, int y, int pNivel) {
-		matriz=new Casilla[x][y];
-		bombas=y*pNivel;
+		dimX=x;
+		dimY=y;
+		nivel=pNivel;
+		matriz=new Casilla[dimX][dimY];
+		bombas=dimY*nivel;
 		bombasRestantes=0;
 		marcadas=0;
 		Random Rf=new Random();
 		Random Rc=new Random();
-		int f=Rf.nextInt(x);
-		int c=Rc.nextInt(x);
-		this.haGanado();
+		int f=Rf.nextInt(dimX);
+		int c=Rc.nextInt(dimX);
+		//this.haGanado();
 		
 		//Inicializar todas las casillas a vacias con valor 0
 		
@@ -288,6 +294,11 @@ public class Tablero implements NObservable {
 
 	public int getBombasRestantes() {
 		return this.bombasRestantes;
+	}
+
+	public void resert() {
+		generarTablero(dimX,dimY,nivel);
+		
 	}
 	
 	

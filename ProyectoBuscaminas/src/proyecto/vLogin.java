@@ -9,7 +9,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-
+import vistas.vistaJuego;
 
 import javax.swing.JRadioButton;
 import java.awt.Color;
@@ -178,7 +178,7 @@ public class vLogin extends JDialog {
 			if(n1.isSelected()) {
 				vLogin.this.dispose();
 				Tablero.getMiTablero().generarTablero(7,10,1);
-				ventanaJuego vf= new ventanaJuego(7,10);
+				vistaJuego vf= new vistaJuego(7,10);
 				Tablero.getMiTablero().anadirObservers(vf);		
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 				
@@ -201,7 +201,7 @@ public class vLogin extends JDialog {
 			}
 			}
 			catch(nombreVacioException e1){
-				JOptionPane.showMessageDialog(null,"Debes introcucir un nombre :( ");
+				JOptionPane.showMessageDialog(null,"Debes introducir un nombre :( ");
 			}
 			
 		}
