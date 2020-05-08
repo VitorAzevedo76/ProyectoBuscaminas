@@ -11,6 +11,7 @@ import proyecto.Casilla;
 import proyecto.Estado;
 import proyecto.NObservable;
 import proyecto.NObserver;
+import proyecto.Puntuaciones;
 import proyecto.Senalada;
 import proyecto.Tablero;
 import proyecto.Tapada;
@@ -189,7 +190,7 @@ public class vistaJuego extends JFrame implements NObserver{
 	}
 	private JMenuItem getVolverEmperzar() {
 		if (VolverEmperzar == null) {
-			VolverEmperzar = new JMenuItem("Volver emperzar");
+			VolverEmperzar = new JMenuItem("Volver empezar");
 			VolverEmperzar.addMouseListener(new reset());
 		}
 		return VolverEmperzar;
@@ -306,6 +307,8 @@ public class vistaJuego extends JFrame implements NObserver{
 			
 			// Comprobación a ver si sigue o no el juego
 			if(!((Tablero) o).finPartida()) {
+				Tablero.getMiTablero().guardarPuntuacion();
+				Puntuaciones.getMisPuntuaciones().guardarDatosEnFich();
 				vistaPontuaciones vp =new vistaPontuaciones();
 				
 				if(((Tablero) o).haGanado()) {

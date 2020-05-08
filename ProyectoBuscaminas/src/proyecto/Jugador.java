@@ -13,6 +13,9 @@ public class Jugador {
 	public int getValor() {
 		return valor;
 	}
+	public void setPunt(int p) {
+		valor=p;
+	}
 	
 	public String getNombre() {
 		return nombre;

@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -14,8 +15,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
-
+import proyecto.Puntuaciones;
 
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -52,7 +54,7 @@ public class vistaPontuaciones extends JDialog {
 			prueba[i] = "Paco";
 		}
 		prueba[9] = "Juan";
-		//CREACIÓN DE ARRAY DE PRUEBA HASTA AQUÍ
+		//CREACIÃ“N DE ARRAY DE PRUEBA HASTA AQUÃ�
 		
 		initialize(prueba);
 		
@@ -116,14 +118,14 @@ public class vistaPontuaciones extends JDialog {
 	}
 	
 	public void Lista(){
-		elementos.addElement("Java");
-		 elementos.addElement("Pascal");
-		 elementos.addElement("Cobol");
-		 elementos.addElement("Perl");
-		 elementos.addElement("Java");
-		 elementos.addElement("Pascal");
-		 elementos.addElement("Cobol");
-		 elementos.addElement("Perl");
+		ArrayList<String> list=Puntuaciones.getMisPuntuaciones().getRank();
+		ListIterator itr= list.listIterator();
+		String s;
+		while (itr.hasNext()) {
+			s=(String) itr.next();
+			elementos.addElement(s);
+		}
+		
 		 jList1.setModel(elementos);
 		
 	}
@@ -144,7 +146,7 @@ public class vistaPontuaciones extends JDialog {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			//al pulsar algun botón se llama a volvejugar
+			//al pulsar algun botÃ³n se llama a volvejugar
 				if(opcion==1) {
 					vjugar=true;
 					

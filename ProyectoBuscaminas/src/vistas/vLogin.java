@@ -10,6 +10,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import proyecto.Puntuaciones;
 import proyecto.Tablero;
 import proyecto.nombreVacioException;
 import proyecto.ventanaJuego;
@@ -49,6 +50,8 @@ public class vLogin extends JDialog {
 					vLogin dialog = new vLogin();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
+					//CARGAR DATOS
+					Puntuaciones.getMisPuntuaciones().cargarDatos();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -154,13 +157,13 @@ public class vLogin extends JDialog {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("¿Cómo te llamas?");
+			lblNewLabel = new JLabel("�Como te llamas?");
 		}
 		return lblNewLabel;
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("¿En qué nivel deseas jugar?");
+			lblNewLabel_1 = new JLabel("�En que nivel deseas jugar?");
 			lblNewLabel_1.setBounds(63, 6, 176, 16);
 		}
 		return lblNewLabel_1;

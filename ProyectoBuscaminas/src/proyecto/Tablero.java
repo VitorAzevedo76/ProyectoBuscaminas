@@ -16,12 +16,14 @@ public class Tablero implements NObservable {
 	private int dimX;
 	private int dimY;
 	private int nivel;
+	private int pulsaciones;
 	
 	//Constructora
 	private Tablero() {
 		juego=true;
 		numCasillaDestapada=0;
 		observers= new ArrayList<NObserver>();
+		pulsaciones=0;
 		
 	}
 	
@@ -72,7 +74,7 @@ public class Tablero implements NObservable {
 			System.out.println("Proxima en " +f+c);
 		}
 		
-		//imprimirB();
+		imprimirB();
 		//imprimirJ() ;
 
 	}
@@ -111,6 +113,7 @@ public class Tablero implements NObservable {
 			System.out.println("");
 		}
 	}
+	*/
 	//Para comprobaciones BORRAR LUEGO
 	private void imprimirB() {
 		for (int i=0; i<matriz.length;i++) {
@@ -125,6 +128,7 @@ public class Tablero implements NObservable {
 			System.out.println("");
 		}
 	}
+	/*
 	private void imprimirJ() {
 		for (int i=0; i<matriz.length;i++) {
 			for (int j=0;j<matriz[1].length;j++) {
@@ -149,52 +153,74 @@ public class Tablero implements NObservable {
 	
 	public void pulsarCasillaDer(int x, int y) {
 		if(juego) {
-			if(marcadas<bombas) {
-				System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
-				matriz[x][y].hacerClickDer();
-				//this.notifyObservers(x, y);
-				Estado estAct=matriz[x][y].getEstado();
-				if(estAct instanceof Tapada ) {
+			
+			if(pulsaciones!=0) {
+				
+			
+				if(marcadas<bombas) {
+					System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
+					matriz[x][y].hacerClickDer();
+					//this.notifyObservers(x, y);
+					Estado estAct=matriz[x][y].getEstado();
+					if(estAct instanceof Tapada ) {
+						bombasRestantes++;
+						marcadas--;
+					}
+					else if (estAct instanceof Senalada) {
+						bombasRestantes--;
+						marcadas++;
+				}
+				}
+				else if(matriz[x][y].getEstado() instanceof Senalada) {
+					matriz[x][y].hacerClickDer();
+					
 					bombasRestantes++;
 					marcadas--;
 				}
-				else if (estAct instanceof Senalada) {
-					bombasRestantes--;
-					marcadas++;
-			}
-			}
-			else if(matriz[x][y].getEstado() instanceof Senalada) {
-				matriz[x][y].hacerClickDer();
-				
-				bombasRestantes++;
-				marcadas--;
-			}
+		}
 		}
 		this.notifyObservers(x, y);
 		System.out.println(this.bombasRestantes);
+		
 	}
 	
 	public void pulsarCasillaIzq(int x, int y) {
 		if(juego && (matriz[x][y].getEstado() instanceof Tapada)) {
-		System.out.println("Izq -Has pulsado la casilla "+x+"-"+y);
-		numCasillaDestapada++;
-		matriz[x][y].hacerClickIzq();
-		this.notifyObservers(x, y);
-		//System.out.println(numCasillaDestapada);
-		actualizarBordesPulsado(x,y);
-		//System.out.println(numCasillaDestapada);
-		//imprimirJ() ;
+	
+			
+		
 		if(matriz[x][y].esMina()) {
+			if(pulsaciones==0) {
+				System.out.println("PRIMER BOMBA");
+				this.generarTablero(this.dimX, this.dimY, this.nivel);
+				this.pulsarCasillaIzq(x, y);
+				
+			}
+			else {
 			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
 			juego=false;
+			
+			
+			numCasillaDestapada++;
+			matriz[x][y].hacerClickIzq();
 			this.notifyObservers(x, y);
+			
+			}
 		}
 		else if(haGanado()) {
 			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
 			juego=false;
 			this.notifyObservers(x, y);
 		}
+		
+		numCasillaDestapada++;
+		matriz[x][y].hacerClickIzq();
+		this.notifyObservers(x, y);
+
+		actualizarBordesPulsado(x,y);
+		pulsaciones++;
 		}
+		
 	}
 	
 	public boolean finPartida() {
@@ -273,8 +299,12 @@ public class Tablero implements NObservable {
 		return marcadas;
 		
 	}
-	private void guardarPuntuacion() {
+	public void guardarPuntuacion() {
+		int puntuacion=0;
+		//PROGRAMAR
 		
+		jugador.setPunt(puntuacion);
+		Puntuaciones.getMisPuntuaciones().insertar(jugador);
 	}
 	public void anadirObservers(NObserver o) {
 		observers.add(o);
@@ -301,6 +331,7 @@ public class Tablero implements NObservable {
 	public void resert() {
 		generarTablero(dimX,dimY,nivel);
 		this.juego=true;
+		jugador=new Jugador(jugador.getNombre());
 		this.numCasillaDestapada=0;
 		
 	}
