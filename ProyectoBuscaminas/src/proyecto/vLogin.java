@@ -1,5 +1,5 @@
 
-package vistas;
+package proyecto;
 
 import java.awt.EventQueue;
 
@@ -9,17 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-
-
-
-
-
-
-
-import proyecto.Tablero;
-import proyecto.nombreVacioException;
-import proyecto.ventanaJuego;
-
 import javax.swing.JRadioButton;
 import java.awt.Color;
 import java.awt.Dimension;
