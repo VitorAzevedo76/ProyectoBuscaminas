@@ -47,7 +47,7 @@ public class Tablero implements NObservable {
 		Random Rc=new Random();
 		int f=Rf.nextInt(dimX);
 		int c=Rc.nextInt(dimX);
-		//this.haGanado();
+		this.haGanado();
 		
 		//Inicializar todas las casillas a vacias con valor 0
 		
@@ -57,8 +57,8 @@ public class Tablero implements NObservable {
 			}
 			
 		}
-		imprimir(); //Para comprobaciones BORRAR LUEGO
-		imprimirB();//Para comprobaciones BORRAR LUEGO
+		//imprimir(); //Para comprobaciones BORRAR LUEGO
+		//imprimirB();//Para comprobaciones BORRAR LUEGO
 		System.out.println(f+"-"+c);//Para comprobaciones BORRAR LUEGO
 		
 		while (bombasRestantes<bombas) {
@@ -72,8 +72,8 @@ public class Tablero implements NObservable {
 			System.out.println("Proxima en " +f+c);
 		}
 		
-		imprimirB();
-		imprimirJ() ;
+		//imprimirB();
+		//imprimirJ() ;
 
 	}
 	
@@ -102,6 +102,7 @@ public class Tablero implements NObservable {
 	}
 	
 	//Para comprobaciones BORRAR LUEGO
+	/*
 	private void imprimir() {
 		for (int i=0; i<matriz.length;i++) {
 			for (int j=0;j<matriz[1].length;j++) {
@@ -142,7 +143,7 @@ public class Tablero implements NObservable {
 			System.out.println("");
 		}
 	}
-
+*/
 	
 	//METODOS DE JUEGO EN CURSO
 	
@@ -182,7 +183,7 @@ public class Tablero implements NObservable {
 		//System.out.println(numCasillaDestapada);
 		actualizarBordesPulsado(x,y);
 		//System.out.println(numCasillaDestapada);
-		imprimirJ() ;
+		//imprimirJ() ;
 		if(matriz[x][y].esMina()) {
 			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
 			juego=false;
@@ -203,6 +204,7 @@ public class Tablero implements NObservable {
 	public boolean haGanado() {
 		int numTotal=matriz[0].length * matriz.length;
 		boolean resp=numCasillaDestapada>=(numTotal-bombas);
+		if (resp) {System.out.println(numCasillaDestapada+"-------"+numTotal+"-"+bombas);}
 		return resp;
 	}
 	
@@ -241,7 +243,7 @@ public class Tablero implements NObservable {
 							else{
 								if(matriz[x+i][y+j].getEstado() instanceof Tapada) {System.out.println("DEStapda: "+(x+i)+(y+j));
 								this.numCasillaDestapada++;
-								;
+								
 								}
 								else {System.out.println("tapada "+(x+i)+(y+j));
 										}
@@ -298,6 +300,8 @@ public class Tablero implements NObservable {
 
 	public void resert() {
 		generarTablero(dimX,dimY,nivel);
+		this.juego=true;
+		this.numCasillaDestapada=0;
 		
 	}
 	
