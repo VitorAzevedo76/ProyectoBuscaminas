@@ -3,8 +3,8 @@ Nuevo-->1
 Nuevo-->1
 Nuevo-->1
 Nuevo-->1
-prueba1-->0
-prueba1-->0
-ds-->0
-ds-->0
-d-->0
+w-->0
+w-->0
+w-->0
+1-->0
+1-->0

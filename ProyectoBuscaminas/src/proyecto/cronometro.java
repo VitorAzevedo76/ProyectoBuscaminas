@@ -2,18 +2,17 @@ package proyecto;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
-public class cronometro implements NObservable{
-	private ArrayList<NObserver> observers;
+public class cronometro {
 	private int minutos;
 	private int segundos;
-	private boolean start;
 	private static cronometro miCrometro;
+	long inicio;
+	long fin;
+	long tiempoPasado;
 	
 	private cronometro (){
-		start=true;
-		observers= new ArrayList<NObserver>();
-		contar();
 	}
 	
 	public static cronometro getMiCronometro() {
@@ -24,59 +23,23 @@ public class cronometro implements NObservable{
 		return miCrometro;
 	}
 	
-	public static void main(String [] agrs) {
-			
-	}
 	private void contar() {
-		minutos =0;
-		segundos=0;
-		while(start&&(minutos<60)) {
-			while(start&&(segundos<60)) {
-				System.out.println(minutos+":"+segundos);
-				delaySegundo();
-				notifyObservers(-1,-1);
-				segundos++;
-			}
-			minutos++;
-		}
-	}
-	
-	private static void delaySegundo() {
-		try {
-			Thread.sleep(1000);
-		}catch (InterruptedException e) {}
-	}
-	@Override
-	public void anadirObservers(NObserver pObs) {
-		observers.add(pObs);
 		
+		minutos = (int) TimeUnit.MILLISECONDS.toMinutes(tiempoPasado);
+		segundos = (int) TimeUnit.MILLISECONDS.toSeconds(-tiempoPasado);
+		System.out.println("Ha pasado "+minutos+" : "+segundos);
 	}
-	@Override
-	public void borrarObserver(NObserver pObs) {
-		observers.remove(pObs);
-		
-		
-	}
-	@Override
-	public void notifyObservers(int x, int y) {
-		Iterator<NObserver> iter = observers.iterator();
-		while(iter.hasNext()) {
-			NObserver o = iter.next();
-			o.update(this,-1,-1);
-		}
-		
-	}
+
 	
 	public void activar() {
-		start=true;
+		inicio = System.currentTimeMillis();
 	}
 	public void desactivar() {
-		start=false;
+		fin = System.currentTimeMillis();
+		tiempoPasado=inicio-fin;
+		this.contar();
 	}
-	public int [] getHora(){
-		int [] resp = new int[2];
-		resp[0]=segundos;
-		resp[1]=minutos;
-		return resp;
+	public long getSegundos(){
+		return tiempoPasado;
 	}
 }
