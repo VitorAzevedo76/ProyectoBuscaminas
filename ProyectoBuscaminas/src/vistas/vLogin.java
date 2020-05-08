@@ -1,3 +1,4 @@
+
 package vistas;
 
 import java.awt.EventQueue;
@@ -8,6 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
+
+
+
+
+
 
 import proyecto.Tablero;
 import proyecto.nombreVacioException;
