@@ -52,7 +52,7 @@ public class vistaJuego extends JFrame implements NObserver{
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
+	//private JLabel lblNewLabel_2;
 	private	JButton bMatriz[][];
 	private int DimX;
 	private int DimY;
@@ -90,6 +90,12 @@ public class vistaJuego extends JFrame implements NObserver{
 		vizualizar();
 	}
 	private void vizualizar() {
+		if (Tablero.getMiTablero().getBombasRestantes()==75) {
+			this.setSize(1200,1000);
+		}
+		else {
+			this.setSize(750,750);
+		}
 		this.setSize(500,500);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
@@ -121,7 +127,7 @@ public class vistaJuego extends JFrame implements NObserver{
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setSize(500, 500);
-			panel.setLayout(new GridLayout(7,10));
+			panel.setLayout(new GridLayout(DimX,DimY));
 			 for(int f=0;f<DimX;f++){
 			      for(int c=0;c<DimY;c++){
 			    	JButton boton=new JButton();
@@ -143,7 +149,7 @@ public class vistaJuego extends JFrame implements NObserver{
 			panel_1 = new JPanel();
 			panel_1.add(getLblNewLabel());
 			panel_1.add(getLblNewLabel_1());
-			panel_1.add(getLblNewLabel_2());
+			
 		}
 		return panel_1;
 	}
@@ -168,12 +174,7 @@ public class vistaJuego extends JFrame implements NObserver{
 		}
 		return lblNewLabel_1;
 	}
-	private JLabel getLblNewLabel_2() {
-		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("0 : 0");
-		}
-		return lblNewLabel_2;
-	}
+	
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
@@ -307,19 +308,8 @@ public class vistaJuego extends JFrame implements NObserver{
 			
 			// Comprobación a ver si sigue o no el juego
 			if(!((Tablero) o).finPartida()) {
-				Tablero.getMiTablero().guardarPuntuacion();
-				Puntuaciones.getMisPuntuaciones().guardarDatosEnFich();
 				vistaPontuaciones vp =new vistaPontuaciones();
-				
-				if(((Tablero) o).haGanado()) {
-					//cronometro.getMiCronometro().desactivar();
-				JOptionPane.showMessageDialog(null,"Has Ganado el juego");
-				}
-				else {
-				JOptionPane.showMessageDialog(null,"Has Perdido el juego");
-				}
-				
-				
+
 				if(vp.volverJugar()){
 					vistaJuego.this.volverEmpezar();}
 				else {
@@ -328,13 +318,6 @@ public class vistaJuego extends JFrame implements NObserver{
 				 
 			}
 		}
-		//else {
-		//	int [] hora= new int [2];
-		//	hora=cronometro.getMiCronometro().getHora();
-		//	this.lblNewLabel_1.setText(hora[0]+" : "+hora[1]);
-	//	}
-		
-		
 	}
 	private void volverEmpezar() {
 		Tablero.getMiTablero().resert();

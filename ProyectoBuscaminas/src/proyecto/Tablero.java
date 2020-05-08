@@ -17,10 +17,11 @@ public class Tablero implements NObservable {
 	private int dimY;
 	private int nivel;
 	private int pulsaciones;
-	
+	private boolean primerClick;
 	//Constructora
 	private Tablero() {
 		juego=true;
+		primerClick=true;
 		numCasillaDestapada=0;
 		observers= new ArrayList<NObserver>();
 		pulsaciones=0;
@@ -152,10 +153,9 @@ public class Tablero implements NObservable {
 	//METODOS DE JUEGO EN CURSO
 	
 	public void pulsarCasillaDer(int x, int y) {
-		if(juego) {
-			
+		if(juego) {		
 			if(pulsaciones!=0) {
-				
+			if(primerClick) {cronometro.getMiCronometro().activar(); primerClick=false;}	
 			
 				if(marcadas<bombas) {
 					System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
@@ -185,9 +185,10 @@ public class Tablero implements NObservable {
 	}
 	
 	public void pulsarCasillaIzq(int x, int y) {
+		if(primerClick) {cronometro.getMiCronometro().activar(); primerClick=false;}
+		boolean haReseteado=false;
 		if(juego && (matriz[x][y].getEstado() instanceof Tapada)) {
-	
-			
+
 		
 		if(matriz[x][y].esMina()) {
 			if(pulsaciones==0) {
@@ -199,31 +200,39 @@ public class Tablero implements NObservable {
 			else {
 			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
 			juego=false;
+			cronometro.getMiCronometro().desactivar();
 			
 			
 			numCasillaDestapada++;
 			matriz[x][y].hacerClickIzq();
 			this.notifyObservers(x, y);
 			
+			haReseteado=true;
 			}
 		}
 		else if(haGanado()) {
 			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
 			juego=false;
+			cronometro.getMiCronometro().desactivar();
 			this.notifyObservers(x, y);
+			haReseteado=true;
 		}
-		
+		if(!haReseteado) {
 		numCasillaDestapada++;
 		matriz[x][y].hacerClickIzq();
 		this.notifyObservers(x, y);
-
 		actualizarBordesPulsado(x,y);
 		pulsaciones++;
+		}
 		}
 		
 	}
 	
 	public boolean finPartida() {
+		if(juego) {
+		Tablero.getMiTablero().guardarPuntuacion();
+		Puntuaciones.getMisPuntuaciones().guardarDatosEnFich();
+		}
 		return juego;
 		
 	}
@@ -333,6 +342,7 @@ public class Tablero implements NObservable {
 		this.juego=true;
 		jugador=new Jugador(jugador.getNombre());
 		this.numCasillaDestapada=0;
+		pulsaciones=0;
 		
 	}
 	

@@ -13,7 +13,7 @@ import javax.swing.JTextPane;
 import proyecto.Puntuaciones;
 import proyecto.Tablero;
 import proyecto.nombreVacioException;
-import proyecto.ventanaJuego;
+
 
 import javax.swing.JRadioButton;
 import java.awt.Color;
@@ -157,13 +157,13 @@ public class vLogin extends JDialog {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("¿Como te llamas?");
+			lblNewLabel = new JLabel("Como te llamas?");
 		}
 		return lblNewLabel;
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("¿En que nivel deseas jugar?");
+			lblNewLabel_1 = new JLabel("En que nivel deseas jugar?");
 			lblNewLabel_1.setBounds(63, 6, 176, 16);
 		}
 		return lblNewLabel_1;
@@ -192,14 +192,14 @@ public class vLogin extends JDialog {
 			else if(n2.isSelected()) {
 				vLogin.this.dispose();
 				Tablero.getMiTablero().generarTablero(10,15,2);
-				ventanaJuego vf= new ventanaJuego(10,15);
+				vistaJuego vf= new vistaJuego(10,15);
 				Tablero.getMiTablero().anadirObservers(vf);
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 			}
 			else if(n3.isSelected()){
 				vLogin.this.dispose();
 				Tablero.getMiTablero().generarTablero(12,25,3);
-				ventanaJuego vf= new ventanaJuego(12,25);
+				vistaJuego vf= new vistaJuego(12,25);
 				Tablero.getMiTablero().anadirObservers(vf);
 				Tablero.getMiTablero().actualizarJugador(pNombre.getText());
 			}
