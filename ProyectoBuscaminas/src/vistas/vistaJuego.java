@@ -14,6 +14,7 @@ import proyecto.NObserver;
 import proyecto.Senalada;
 import proyecto.Tablero;
 import proyecto.Tapada;
+import proyecto.cronometro;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -168,7 +169,7 @@ public class vistaJuego extends JFrame implements NObserver{
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("tiempo");
+			lblNewLabel_2 = new JLabel("0 : 0");
 		}
 		return lblNewLabel_2;
 	}
@@ -212,6 +213,7 @@ public class vistaJuego extends JFrame implements NObserver{
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
+			//cronometro.getMiCronometro();
 			// 1- Click izquierdo
 			// 3- Click derecho			
 			int n=e.getButton();
@@ -278,7 +280,7 @@ public class vistaJuego extends JFrame implements NObserver{
 			Casilla act= ((Tablero) o).getCasilla(x, y);
 			Estado eAct=act.getEstado();
 			
-			if(eAct instanceof Senalada) {
+			if(eAct instanceof Senalada) {  							//Cambiar a un string
 				ImageIcon imagen = new ImageIcon("./img/flag.png");
 				bMatriz[x][y].setIcon(imagen);
 			
@@ -304,8 +306,10 @@ public class vistaJuego extends JFrame implements NObserver{
 			
 			// Comprobación a ver si sigue o no el juego
 			if(!((Tablero) o).finPartida()) {
-			vPuntuaciones vp =new vPuntuaciones();
+				vistaPontuaciones vp =new vistaPontuaciones();
+				
 				if(((Tablero) o).haGanado()) {
+					//cronometro.getMiCronometro().desactivar();
 				JOptionPane.showMessageDialog(null,"Has Ganado el juego");
 				}
 				else {
@@ -314,17 +318,24 @@ public class vistaJuego extends JFrame implements NObserver{
 				
 				
 				if(vp.volverJugar()){
-					volverEmpezar();}
+					vistaJuego.this.volverEmpezar();}
 				else {
 					this.dispose();
 				}
 				 
 			}
 		}
+		//else {
+		//	int [] hora= new int [2];
+		//	hora=cronometro.getMiCronometro().getHora();
+		//	this.lblNewLabel_1.setText(hora[0]+" : "+hora[1]);
+	//	}
+		
 		
 	}
 	private void volverEmpezar() {
 		Tablero.getMiTablero().resert();
+		lblNewLabel_1.setIcon(new ImageIcon("./img/happy.png"));
 		for(int f=0;f<DimX;f++){
 		      for(int c=0;c<DimY;c++){
 		        bMatriz[f][c].setEnabled(true);
