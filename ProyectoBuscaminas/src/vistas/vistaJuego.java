@@ -96,7 +96,6 @@ public class vistaJuego extends JFrame implements NObserver{
 		else {
 			this.setSize(750,750);
 		}
-		this.setSize(500,500);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		if (frameSize.height > screenSize.height) {
