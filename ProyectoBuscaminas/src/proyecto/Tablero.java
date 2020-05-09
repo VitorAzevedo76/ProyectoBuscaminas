@@ -309,9 +309,12 @@ public class Tablero implements NObservable {
 		
 	}
 	public void guardarPuntuacion() {
-		int puntuacion=0;
+	
 		//PROGRAMAR
-		
+		long s=cronometro.getMiCronometro().getSegundos();
+		int c= dimX*dimY;
+		long p= c+ 1000/s;
+		int puntuacion= (int)(long) p;
 		jugador.setPunt(puntuacion);
 		Puntuaciones.getMisPuntuaciones().insertar(jugador);
 	}
