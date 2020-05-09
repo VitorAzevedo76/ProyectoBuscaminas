@@ -26,8 +26,18 @@ public class Casilla {
 		return conMina;
 	}
 	
-	public Estado getEstado() {
-		return estado;
+	public int getEstado() {
+		int resp=-1;
+		if(estado instanceof Tapada) {
+			resp=1;
+		}
+		else if(estado instanceof Destapada) {
+			resp=2;
+		}
+		else if(estado instanceof Senalada) {
+			resp=3;
+		}
+		return resp;
 	}
 	public int getValor() {
 		return valor;
@@ -39,6 +49,5 @@ public class Casilla {
 	public void addMina() {
 		conMina=true;
 	}
-	
-	//Prueba
+
 }

@@ -45,20 +45,6 @@ public class vistaPontuaciones extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 * 
-	 * //ARRAY DE PRUEBA
-		String[] prueba = new String[10];
-		for(int i=0; i<prueba.length-1; i++) {
-			prueba[i] = "Paco";
-		}
-		prueba[9] = "Juan";
-		//CREACIÃ“N DE ARRAY DE PRUEBA HASTA AQUÃ�
-		
-		initialize(prueba);
-		
-	 */
 	public vistaPontuaciones() {
 		setModal(true);
 		setBounds(100, 100, 262, 353);
@@ -97,6 +83,7 @@ public class vistaPontuaciones extends JDialog {
 			
 			
 		}
+		
 		Lista();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		vizualizar();
@@ -124,10 +111,8 @@ public class vistaPontuaciones extends JDialog {
 		while (itr.hasNext()) {
 			s=(String) itr.next();
 			elementos.addElement(s);
-		}
-		
-		 jList1.setModel(elementos);
-		
+		}		
+		 jList1.setModel(elementos);		
 	}
 
 	public boolean volverJugar() {
@@ -148,11 +133,9 @@ public class vistaPontuaciones extends JDialog {
 		public void mousePressed(MouseEvent e) {
 			//al pulsar algun botÃ³n se llama a volvejugar
 				if(opcion==1) {
-					vjugar=true;
-					
+					vjugar=true;	
 				}
-				else if(opcion==2) {
-					
+				else if(opcion==2) {	
 					vjugar=false;
 				}
 				vistaPontuaciones.this.dispose();

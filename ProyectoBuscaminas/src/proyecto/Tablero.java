@@ -104,18 +104,7 @@ public class Tablero implements NObservable {
 		
 	}
 	
-	//Para comprobaciones BORRAR LUEGO
-	/*
-	private void imprimir() {
-		for (int i=0; i<matriz.length;i++) {
-			for (int j=0;j<matriz[1].length;j++) {
-				System.out.print(" "+i+"-"+j);
-			}
-			System.out.println("");
-		}
-	}
-	*/
-	//Para comprobaciones BORRAR LUEGO
+
 	private void imprimirB() {
 		for (int i=0; i<matriz.length;i++) {
 			for (int j=0;j<matriz[1].length;j++) {
@@ -129,26 +118,7 @@ public class Tablero implements NObservable {
 			System.out.println("");
 		}
 	}
-	/*
-	private void imprimirJ() {
-		for (int i=0; i<matriz.length;i++) {
-			for (int j=0;j<matriz[1].length;j++) {
-				if(matriz[i][j].getEstado() instanceof Destapada){
-					if(matriz[i][j].esMina()){
-						System.out.print("M ");
-					}
-					else {
-						System.out.print(matriz[i][j].getValor()+" ");
-					}
-				}
-				else {
-					System.out.print("* ");
-				}
-			}
-			System.out.println("");
-		}
-	}
-*/
+	
 	
 	//METODOS DE JUEGO EN CURSO
 	
@@ -158,20 +128,18 @@ public class Tablero implements NObservable {
 			if(primerClick) {cronometro.getMiCronometro().activar(); primerClick=false;}	
 			
 				if(marcadas<bombas) {
-					System.out.println("Der -Has pulsado la casilla "+x+"-"+y);
 					matriz[x][y].hacerClickDer();
-					//this.notifyObservers(x, y);
-					Estado estAct=matriz[x][y].getEstado();
-					if(estAct instanceof Tapada ) {
+					int estAct=matriz[x][y].getEstado();
+					if(estAct==1) {
 						bombasRestantes++;
 						marcadas--;
 					}
-					else if (estAct instanceof Senalada) {
+					else if (estAct==3) {
 						bombasRestantes--;
 						marcadas++;
+					}
 				}
-				}
-				else if(matriz[x][y].getEstado() instanceof Senalada) {
+				else if(matriz[x][y].getEstado()==3) {
 					matriz[x][y].hacerClickDer();
 					
 					bombasRestantes++;
@@ -180,45 +148,37 @@ public class Tablero implements NObservable {
 		}
 		}
 		this.notifyObservers(x, y);
-		System.out.println(this.bombasRestantes);
 		
 	}
 	
 	public void pulsarCasillaIzq(int x, int y) {
 		if(primerClick) {cronometro.getMiCronometro().activar(); primerClick=false;}
 		boolean haReseteado=false;
-		if(juego && (matriz[x][y].getEstado() instanceof Tapada)) {
-
+		if(juego && (matriz[x][y].getEstado()==1)) {
+			numCasillaDestapada++;
 		
 		if(matriz[x][y].esMina()) {
 			if(pulsaciones==0) {
-				System.out.println("PRIMER BOMBA");
+				numCasillaDestapada=0;
 				this.generarTablero(this.dimX, this.dimY, this.nivel);
 				this.pulsarCasillaIzq(x, y);
 				
 			}
 			else {
-			System.out.println("Has perdido pulsando la casilla "+x+"-"+y);
-			juego=false;
-			cronometro.getMiCronometro().desactivar();
-			
-			
-			numCasillaDestapada++;
-			matriz[x][y].hacerClickIzq();
-			this.notifyObservers(x, y);
-			
-			haReseteado=true;
+				juego=false;
+				cronometro.getMiCronometro().desactivar();
+				matriz[x][y].hacerClickIzq();
+				this.notifyObservers(x, y);
+				haReseteado=true;
 			}
 		}
 		else if(haGanado()) {
-			System.out.println("Has ganado pulsando la casilla "+x+"-"+y);
 			juego=false;
 			cronometro.getMiCronometro().desactivar();
 			this.notifyObservers(x, y);
 			haReseteado=true;
 		}
 		if(!haReseteado) {
-		numCasillaDestapada++;
 		matriz[x][y].hacerClickIzq();
 		this.notifyObservers(x, y);
 		actualizarBordesPulsado(x,y);
@@ -229,7 +189,7 @@ public class Tablero implements NObservable {
 	}
 	
 	public boolean finPartida() {
-		if(juego) {
+		if(!juego) {
 		Tablero.getMiTablero().guardarPuntuacion();
 		Puntuaciones.getMisPuntuaciones().guardarDatosEnFich();
 		}
@@ -276,18 +236,13 @@ public class Tablero implements NObservable {
 								
 								}
 							else{
-								if(matriz[x+i][y+j].getEstado() instanceof Tapada) {System.out.println("DEStapda: "+(x+i)+(y+j));
-								this.numCasillaDestapada++;
-								
+								if(matriz[x+i][y+j].getEstado()==1) {
+									this.numCasillaDestapada++;
 								}
-								else {System.out.println("tapada "+(x+i)+(y+j));
-										}
 								matriz[x+i][y+j].hacerClickIzq();
 								this.notifyObservers(x+i, y+j);
 							}
-							
-					
-							
+
 							
 							}
 						}
@@ -304,19 +259,16 @@ public class Tablero implements NObservable {
 	public Casilla getCasilla(int x, int y) {
 		return matriz[x][y];
 	}
-	private int getMarcadas() {
-		return marcadas;
-		
-	}
+
 	public void guardarPuntuacion() {
-	
-		//PROGRAMAR
 		long s=cronometro.getMiCronometro().getSegundos();
-		int c= dimX*dimY;
-		long p= c+ 1000/s;
-		int puntuacion= (int)(long) p;
-		jugador.setPunt(puntuacion);
-		Puntuaciones.getMisPuntuaciones().insertar(jugador);
+        int c= dimX*dimY;
+        long p= c+ 1000/s;
+        int puntuacion= (int)(long) p;
+        if(!haGanado()) {puntuacion=0;}
+        jugador.setPunt(puntuacion);
+        System.out.println("PERDISTE");
+        Puntuaciones.getMisPuntuaciones().insertar(jugador);
 	}
 	public void anadirObservers(NObserver o) {
 		observers.add(o);

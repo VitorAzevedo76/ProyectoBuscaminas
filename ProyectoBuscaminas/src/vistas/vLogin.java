@@ -40,30 +40,9 @@ public class vLogin extends JDialog {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					vLogin dialog = new vLogin();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-					//CARGAR DATOS
-					Puntuaciones.getMisPuntuaciones().cargarDatos();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public vLogin() {
-
+		Puntuaciones.getMisPuntuaciones().cargarDatos();
 		initialize();
 		vizualizar();
 	}

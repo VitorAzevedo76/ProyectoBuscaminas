@@ -23,29 +23,13 @@ public class Puntuaciones {
 	//Constructora
 	
 	private Puntuaciones() {
-
-		//lista=new Jugador[10]();
 		dirActual = System.getProperty("user.dir");
 		pRuta = dirActual + File.separator+"RANK.txt";
 		lista=new Jugador[10];
 	
 
 	}
-	public void imprimir() {
-		int cont=0;
-		boolean enc=false;
-		System.out.println("IMPRIMIENDO");
-		while (cont<10 && !enc) {
-			if(lista[cont]==null) {
-				enc=true;
-			}
-			else {
-			System.out.println((cont+1)+"-"+lista[cont].getNombre()+lista[cont].getValor());
-			cont++;
-		}}
-		
 
-	}
 	public static Puntuaciones getMisPuntuaciones() {
 		if(misPuntuaciones==null) {
 			misPuntuaciones= new Puntuaciones();
@@ -76,7 +60,6 @@ public class Puntuaciones {
 		Jugador[] l=new Jugador[10];
 		 int cont=0;
 		 boolean enc=false;
-		
 		 while(!enc && cont < 10) {
 			if( lista[cont]	==null || lista[cont].getValor() <= pJug.getValor()) {
 				enc=true;
@@ -85,7 +68,6 @@ public class Puntuaciones {
 			
 			else {
 				 l[cont]=lista[cont];
-					System.out.println("INSERTAR2");
 			 }
 			 
 			
@@ -96,8 +78,7 @@ public class Puntuaciones {
 			 while (cont<10) {
 				 l[cont]=lista[cont-1];
 				 cont++; 
-			 }
-			 
+			 } 
 		 }
 		lista=l;
 		
@@ -127,7 +108,6 @@ public class Puntuaciones {
 			         while(linea!=null && cont<10){
 			        	 
 				        	linea=br.readLine();
-				        	//System.out.println(linea);
 				        	String x=linea;
 				        	String []pos=x.split("-->");		
 				        	jug=new Jugador(pos[0]);
@@ -188,8 +168,7 @@ public class Puntuaciones {
 		        escritura.newLine();
 		        cont++;
 			}
-			
-		
+
 	    
 		} 
 
