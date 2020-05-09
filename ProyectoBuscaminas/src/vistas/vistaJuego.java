@@ -52,35 +52,14 @@ public class vistaJuego extends JFrame implements NObserver{
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	//private JLabel lblNewLabel_2;
 	private	JButton bMatriz[][];
 	private int DimX;
 	private int DimY;
-	private int TamX;
-	private int TamY;
 	private JMenuBar menuBar;
 	private JMenu opciones;
 	private JMenuItem VolverEmperzar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					vistaJuego frame = new vistaJuego(7,10);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public vistaJuego(int x, int y) {
 		setResizable(false);
 		setTitle("BUSCAMINA");
@@ -110,7 +89,6 @@ public class vistaJuego extends JFrame implements NObserver{
 	}
 	private void initialize() {
 		bMatriz = new JButton[DimX][DimY];
-		ObtenerTamanioObjetos(DimX,DimY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 500, 500);
 		setJMenuBar(getMenuBar_1());
@@ -132,14 +110,11 @@ public class vistaJuego extends JFrame implements NObserver{
 			    	JButton boton=new JButton();
 			        bMatriz[f][c] = boton;
 			        bMatriz[f][c].setSize(DimX,DimY);
-			        panel.add(bMatriz[f][c]); 
-			        
+			        panel.add(bMatriz[f][c]);        
 			        boton.addMouseListener(new controlador(f,c));
 
 			      }
-			    }
-			 
-			
+			    }		
 		}
 		return panel;
 	}
@@ -214,7 +189,6 @@ public class vistaJuego extends JFrame implements NObserver{
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
-			//cronometro.getMiCronometro();
 			// 1- Click izquierdo
 			// 3- Click derecho			
 			int n=e.getButton();
@@ -232,10 +206,8 @@ public class vistaJuego extends JFrame implements NObserver{
 		}
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}
-
 	
 	}
 	
@@ -274,24 +246,20 @@ public class vistaJuego extends JFrame implements NObserver{
 	}
 	@Override
 	public void update(NObservable o, int x, int y) {
-
 		editBombas();
-		
 		if(o instanceof Tablero) {
 			Casilla act= ((Tablero) o).getCasilla(x, y);
-			Estado eAct=act.getEstado();
+			int eAct=act.getEstado();
 			
-			if(eAct instanceof Senalada) {  							//Cambiar a un string
+			if(eAct==3) {  							
 				ImageIcon imagen = new ImageIcon("./img/flag.png");
 				bMatriz[x][y].setIcon(imagen);
-			
-			
 			}
-			else if(eAct instanceof Tapada){
+			else if(eAct==1){
 				bMatriz[x][y].setIcon(null);
 				
 			}
-			else {
+			else if(eAct==2) {
 				if(!act.esMina()) {
 				int valor=act.getValor();
 				bMatriz[x][y].setEnabled(false);
@@ -308,7 +276,6 @@ public class vistaJuego extends JFrame implements NObserver{
 			// Comprobación a ver si sigue o no el juego
 			if(!((Tablero) o).finPartida()) {
 				vistaPontuaciones vp =new vistaPontuaciones();
-
 				if(vp.volverJugar()){
 					vistaJuego.this.volverEmpezar();}
 				else {
@@ -333,11 +300,5 @@ public class vistaJuego extends JFrame implements NObserver{
 		editBombas();
 		lblNewLabel.setText("Bombas restantes: "+String.valueOf(Tablero.getMiTablero().getBombasRestantes()));
 	}
-	
-	private void ObtenerTamanioObjetos(int cantX, int cantY)
-    {
-        TamX = 500/cantX;
-        TamY = 500/cantY;
-    }
 
 }

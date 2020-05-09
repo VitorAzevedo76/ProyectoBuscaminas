@@ -25,9 +25,8 @@ public class cronometro {
 	
 	private void contar() {
 		
-		minutos = (int) TimeUnit.MILLISECONDS.toMinutes(tiempoPasado);
+		minutos = (int) TimeUnit.MILLISECONDS.toMinutes(-tiempoPasado);
 		segundos = (int) TimeUnit.MILLISECONDS.toSeconds(-tiempoPasado);
-		System.out.println("Ha pasado "+minutos+" : "+segundos);
 	}
 
 	
